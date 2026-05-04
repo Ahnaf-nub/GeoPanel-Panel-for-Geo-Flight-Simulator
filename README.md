@@ -1,5 +1,3 @@
-# Aviation Telemetry Sender
-
 Real-time flight telemetry display for GeoFS flight simulator using a Raspberry Pi Pico with TFT display, rotary encoder, and RGB LED indicators.
 
 ## Bill of Materials (BOM)
