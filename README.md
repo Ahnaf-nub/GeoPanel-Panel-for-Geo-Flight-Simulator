@@ -1,4 +1,10 @@
-Real-time flight telemetry display for GeoFS flight simulator using a Raspberry Pi Pico with TFT display, rotary encoder, and RGB LED indicators.
+Real-time flight telemetry display for GeoFS flight simulator using a Raspberry Pi Pico with TFT display, rotary encoder, and LED indicator.
+
+Use the Tampermonkey extension to add the geofs-telemetry-sender.js script. Follow the below for guidance:
+<img width="1366" height="716" alt="Screenshot (104)" src="https://github.com/user-attachments/assets/77f41332-a248-4b61-ae9a-302353ce292a" />
+From Extensions click on Tampermonkey and click on "Create a new script".
+<img width="1366" height="695" alt="Screenshot (106)" src="https://github.com/user-attachments/assets/838b78cf-78e7-4d25-8385-bdbfd2f6a6d7" />
+Then Paste the javascript code in here and save it!
 
 ## Bill of Materials (BOM)
 
@@ -39,6 +45,23 @@ Real-time flight telemetry display for GeoFS flight simulator using a Raspberry 
 - **+** → 3V3
 - **GND** → GND
 
+### System Architecture
+GeoFS Simulator
+       │
+       ▼
+Tampermonkey Telemetry Script
+       │
+       ▼
+Serial/Web Communication
+       │
+       ▼
+Raspberry Pi Pico
+       │
+ ┌─────┼───────────────┐
+ ▼     ▼               ▼
+TFT   LED       Input Controls
+            (Buttons & Rotary Encoder)
+
 ## Dependencies
 
 ```ini
@@ -50,9 +73,12 @@ lib_deps =
 ## Features
 
 - Real-time flight data display (pitch, roll, heading, altitude, airspeed)
-- G-load and stall/overspeed indicators
+- G-load and stall/overspeed and other warning indicators
 - Autopilot status display
 - Rotary encoder for autpilot parameters adjustment
-- RGB LED status indicator
-- Engine data visualization
-- Gear position animation
+- LED status indicator
+- System data visualization
+
+## Future Plans
+
+Currently working on adding potentiometer support for flight control and autopilot adjustments. Also, will be adding a 1.28 inch round display to add radar system!
