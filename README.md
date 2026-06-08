@@ -78,4 +78,4 @@ lib_deps =
 
 ## Future Plans
 
-Currently working on adding potentiometer support for flight control and autopilot adjustments. Also, will be adding a 1.28 inch round display to add radar system!
+Currently working on adding potentiometer for thrust control. Also, will be adding a 1.28 inch round display to add radar system!
