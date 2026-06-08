@@ -1,4 +1,5 @@
 Real-time flight telemetry display for GeoFS flight simulator using a Raspberry Pi Pico with TFT display, rotary encoder, and LED indicator.
+Demo Link: https://youtu.be/hnZdgzygMNU
 
 Use the Tampermonkey extension to add the geofs-telemetry-sender.js script. Follow the below for guidance:
 <img width="1366" height="716" alt="Screenshot (104)" src="https://github.com/user-attachments/assets/77f41332-a248-4b61-ae9a-302353ce292a" />
