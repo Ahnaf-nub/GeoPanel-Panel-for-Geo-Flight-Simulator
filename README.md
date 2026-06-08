@@ -11,10 +11,9 @@ Then Paste the javascript code in here and save it!
 | Part # | Component | Qty | Description |
 |--------|-----------|-----|-------------|
 | 1 | Raspberry Pi Pico | 1 | Microcontroller
-| 2 | Adafruit ST7735 80x160 TFT Display | 1 | TFT Display | 0.96 inch |
-| 3 | Adafruit NeoPixel RGB LED (Optional) | 1 | Programmable LED |
-| 4 | Push Button | 2 | User Input | Main button + Autopilot toggle |
-| 5 | Rotary Encoder | 1 | Menu Navigation | KY-040 or similar |
+| 2 | ST7735 128x160 TFT Display | 1 | TFT Display | 1.8 inch |
+| 3 | Push Button | 1 | User Input | Main button |
+| 5 | Rotary Encoder | 1 | Parameter setting | EC11 |
 
 ## Wiring Connections
 
