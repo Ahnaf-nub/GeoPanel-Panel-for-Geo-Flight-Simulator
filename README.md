@@ -45,11 +45,19 @@ Onboard Green LED
 - **+** → 3V3
 - **GND** → GND
 
+### Hardware Case
+
+3D printed enclosure designed using fusion 360 (avionics_1.8inch.3mf) CAD model.
+
 ### System Architecture
 
 ```text
 GeoFS Simulator → Tampermonkey Telemetry Script → Serial/Web Communication → Raspberry Pi Pico → TFT Display / LED / Inputs
 ```
+
+### UI Design
+Cockpit-style avionics layout
+Typeface: Airbus B612 font used for all cockpit text rendering
 
 ## Dependencies
 
