@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         GeoFS -> Pico Cockpit Link
 // @namespace    http://tampermonkey.net/
-// @description  Send GeoFS telemetry over Web Serial
+// @version      2.0
+// @description  Send GeoFS telemetry to Raspberry Pi Pico over Web Serial
 // @match        https://www.geo-fs.com/geofs.php*
 // @match        https://*.geo-fs.com/geofs.php*
 // @match        https://geofs.com/*
@@ -19,8 +20,6 @@
     let serialPort = null;
     let writer = null;
     let connected = false;
-    let txCount = 0;
-    let lastError = '';
 
     function uiMount() {
         if (btn) return;
@@ -54,7 +53,10 @@
         });
     }
 
-    function setStatus(text, color) {
+    function syncButtonVisibility() {
+        if (!btn) return;
+        // Button is always visible: shows "Connect Pico" or "Disconnect Pico"
+        btn.style.display = '';
     }
 
     function getNumber(obj, keys, fallback) {
@@ -119,7 +121,6 @@
         // aircraft.engine                   → {rpm, rpmLeft, rpmRight, on, …}
         // aircraft.engines[0/1]             → per-engine objects
         // aircraft.stalling / .overspeed    → booleans
-        // aircraft.aircraftRecord.name      → aircraft name string
 
         const aircraft = globalThis.geofs?.aircraft?.instance || null;
         const av       = aircraft?.animationValue || {};   // primary data source
@@ -129,7 +130,7 @@
 
         // No aircraft loaded yet — send heartbeat so Pico knows we're alive
         if (!aircraft || !Array.isArray(htr) || htr.length < 3) {
-            return [0,0,0,0,0,0,0,0,1.0,1013.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'NoGeoFS'].join(',') + '\n';
+            return [0,0,0,0,0,0,0,0,1.0,1013.25,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0].join(',') + '\n';
         }
 
         // ── Attitude ─────────────────────────────────────────────────────────
@@ -183,15 +184,7 @@
 
         // AP status — read directly from geofs.autopilot
         const ap = globalThis.geofs && globalThis.geofs.autopilot;
-        const apOn      = ap ? (ap.on === true) : false;
-        const apMode    = ap ? (ap.mode || '') : '';  // "HDG", "NAV", etc
-        // AP actual target values from geofs (what GeoFS AP is targeting)
-        const apCourse  = ap && ap.values ? (Number(ap.values.course)  || 0) : 0;
-        const apAlt     = ap && ap.values ? (Number(ap.values.altitude) || 0) : 0;
-        const apIAS     = ap && ap.values ? (Number(ap.values.IAS)      || 0) : 0;
-        // Encode apMode as number: 0=off, 1=HDG, 2=NAV, 3=ALT, 4=IAS, 5=other
-        const apModeN   = !apOn ? 0 : apMode==='HDG' ? 1 : apMode==='NAV' ? 2 :
-        apMode==='ALT' ? 3 : apMode==='IAS' ? 4 : 5;
+        const apOn = ap ? (ap.on === true) : false;
 
         // GPWS: read channel 1 directly — exact alarm ID string from GeoFS
         // Possible values: sinkrate, whoopwhooppullup, pullup, terrainterrain,
@@ -199,6 +192,7 @@
         // toolowgear, toolowterrain, toolowflaps, glideslope, glideslopeloud,
         // bankAngle, stall, overspeed, apdisconnect — or null
         const gpwsAlarm = (geofs.alarms && geofs.alarms.channels[1].toPlay) || '';
+
         const gearPos = Number(av.gearPosition) || 0;
 
         // Flaps: send raw step and max steps as integers so Pico shows exact step.
@@ -284,22 +278,6 @@
                                                 const ap = globalThis.geofs && globalThis.geofs.autopilot;
                                                 let applied = false;
                                                 let ackPayload = null;
-                                                // THR — potentiometer throttle (no AP needed)
-                                                if (what === 'THR' && Number.isFinite(val)) {
-                                                    const tval = Math.max(0, Math.min(1, val));
-                                                    const ac = globalThis.geofs?.aircraft?.instance;
-                                                    if (ac) {
-                                                        // Set throttle on all engines
-                                                        if (typeof ac.setThrottle === 'function') {
-                                                            ac.setThrottle(tval);
-                                                        } else {
-                                                            // Direct property set as fallback
-                                                            ac.throttle = tval;
-                                                            if (ac.engines) ac.engines.forEach(e => { if(e) e.throttle = tval; });
-                                                        }
-                                                        applied = true;
-                                                    }
-                                                }
                                                 if (ap) {
                                                     if (what === 'HDG' && Number.isFinite(val)) {
                                                         if (typeof ap.setCourse === 'function') { ap.setCourse(val); applied = true; }
@@ -346,14 +324,10 @@
                 console.warn('Reader not started', e);
             }
             connected = true;
-            txCount = 0;
-            lastError = '';
-            if (btn) {
-                btn.remove();
-                btn = null;
-            }
+            btn.textContent = 'Disconnect Pico';
+            btn.style.background = '#2e7d32';
+            syncButtonVisibility();
         } catch (err) {
-            lastError = String(err && err.message ? err.message : err);
             console.error('Connect error:', err);
             await disconnect();
         }
@@ -378,7 +352,12 @@
         } finally {
             serialPort = null;
         }
-        uiMount();
+
+        if (btn) {
+            btn.textContent = 'Connect';
+            btn.style.background = '#1976d2';
+        }
+        syncButtonVisibility();
     }
 
     async function transmitLoop() {
@@ -386,10 +365,7 @@
         try {
             const line = buildTelemetryLine();
             await writer.write(new TextEncoder().encode(line));
-            txCount++;
-
         } catch (err) {
-            lastError = String(err && err.message ? err.message : err);
             console.error('Send error:', err);
             await disconnect();
         }
