@@ -18,6 +18,8 @@ Then Paste the javascript code in here and save it!
 
 ## Wiring Connections
 
+![Circuit Diagram](circuit_image (1).png)
+
 ### TFT Display (SPI)
 - **MOSI** → GP8 (SPI TX)
 - **MISO** → GP4
