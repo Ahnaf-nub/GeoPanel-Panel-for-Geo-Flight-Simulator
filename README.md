@@ -28,10 +28,8 @@ Then Paste the javascript code in here and save it!
 - **VCC** → 3V3
 - **GND** → GND
 
-### NeoPixel RGB LED
-- **Data** → GP24
-- **VCC** → 3V3 
-- **GND** → GND
+### LED
+Onboard Green LED
 
 ### Push Buttons
 - **Main Button** → GP28
