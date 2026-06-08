@@ -46,21 +46,12 @@ Then Paste the javascript code in here and save it!
 - **GND** → GND
 
 ### System Architecture
-GeoFS Simulator
-       │
-       ▼
-Tampermonkey Telemetry Script
-       │
-       ▼
-Serial/Web Communication
-       │
-       ▼
-Raspberry Pi Pico
-       │
- ┌─────┼───────────────┐
- ▼     ▼               ▼
-TFT   LED       Input Controls
-            (Buttons & Rotary Encoder)
+
+```text
+GeoFS Simulator → Tampermonkey Telemetry Script → Serial/Web Communication → Raspberry Pi Pico
+                                             ↓
+                               TFT Display / LED / Inputs
+```
 
 ## Dependencies
 
