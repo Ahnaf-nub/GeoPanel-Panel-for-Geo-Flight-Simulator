@@ -21,22 +21,20 @@ Then Paste the javascript code in here and save it!
 
 
 ### TFT Display (SPI)
-- **MOSI** → GP8 (SPI TX)
-- **MISO** → GP4
-- **SCK** → GP6 (SPI Clock)
-- **CS** → GP26
-- **DC** → GP22
-- **RST** → GP21
+- **MOSI** → GP27 (SPI TX)
+- **SCK** → GP26 (SPI Clock)
+- **CS** → GP21
+- **DC** → GP19
+- **RST** → GP18
 - **VCC** → 3V3
 - **GND** → GND
 
 ### LED
-Onboard Green LED
+- **Onboard Green LED** → GP25
 
 ### Push Buttons
-- **Main Button** → GP28
-- **Autopilot Toggle** → GP25
-- 
+- **Main Button** → GP0
+  
 ### Rotary Encoder
 - **CLK (A)** → GP10
 - **DT (B)** → GP11 
