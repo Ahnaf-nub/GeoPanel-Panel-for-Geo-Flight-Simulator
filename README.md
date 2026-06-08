@@ -13,7 +13,7 @@ Then Paste the javascript code in here and save it!
 | 1 | Raspberry Pi Pico | 1 | Microcontroller
 | 2 | ST7735 128x160 TFT Display | 1 | TFT Display | 1.8 inch |
 | 3 | Push Button | 1 | User Input | Main button |
-| 5 | Rotary Encoder | 1 | Parameter setting | EC11 |
+| 5 | Rotary Encoder | 1 | Parameter setting User Input | EC11 |
 
 ## Wiring Connections
 
