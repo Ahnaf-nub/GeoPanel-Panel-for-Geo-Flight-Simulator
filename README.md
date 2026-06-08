@@ -33,9 +33,8 @@ Onboard Green LED
 
 ### Push Buttons
 - **Main Button** → GP28
-- **Autopilot Toggle** → GP25 
-- **Other Pin** → GND
-
+- **Autopilot Toggle** → GP25
+- 
 ### Rotary Encoder
 - **CLK (A)** → GP10
 - **DT (B)** → GP11 
