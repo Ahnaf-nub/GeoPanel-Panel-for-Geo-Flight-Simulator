@@ -48,9 +48,7 @@ Then Paste the javascript code in here and save it!
 ### System Architecture
 
 ```text
-GeoFS Simulator → Tampermonkey Telemetry Script → Serial/Web Communication → Raspberry Pi Pico
-                                             ↓
-                               TFT Display / LED / Inputs
+GeoFS Simulator → Tampermonkey Telemetry Script → Serial/Web Communication → Raspberry Pi Pico → TFT Display / LED / Inputs
 ```
 
 ## Dependencies
