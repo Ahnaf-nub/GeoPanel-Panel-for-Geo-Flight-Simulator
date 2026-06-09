@@ -52,7 +52,11 @@ Then Paste the javascript code in here and save it!
 ```text
 GeoFS Simulator → Tampermonkey Telemetry Script → Serial/Web Communication → Raspberry Pi Pico → TFT Display / LED / Inputs
 ```
-
+There are 3 Tabs on the display:
+1. FLT — Displays Flight data (IAS, ALT, VS, HDG, Pitch, Roll, etc.)
+2. NAV — Displays Navigation information (Waypoint, Course, Bearing, Distance)
+3. ADA — Displays Aircraft data & alerts (AOA, G-Load, Engine, Wind, Warnings)
+   
 ### UI Design
 Cockpit-style avionics layout
 Typeface: Airbus B612 font used for all cockpit text rendering
